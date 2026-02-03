@@ -13,8 +13,10 @@ from pathlib import Path
 # Add src directory to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
+from datetime import datetime, timedelta
 from src.config.settings import settings
 from src.auth.google_auth import test_connection
+from src.api.ga4_client import GA4Client
 
 # Page configuration
 st.set_page_config(
@@ -154,6 +156,45 @@ with col3:
     else:
         st.error("❌ Not found")
         st.caption("Add service-account.json to credentials/")
+
+st.markdown("---")
+
+# Quick Site Metrics
+st.subheader("Site Performance (Last 30 Days)")
+
+end_date = datetime.now().strftime('%Y-%m-%d')
+start_date = (datetime.now() - timedelta(days=30)).strftime('%Y-%m-%d')
+
+site_names = settings.get_site_names()
+if site_names and settings.validate_credentials():
+    cols = st.columns(len(site_names))
+
+    for i, name in enumerate(site_names):
+        site = settings.get_site(name)
+        with cols[i]:
+            st.markdown(f"**{site.display_name}**")
+
+            if site.ga4_property_id:
+                try:
+                    ga4 = GA4Client(site_config=site)
+                    data = ga4.get_traffic_overview(start_date, end_date)
+
+                    sessions = int(data['sessions'].sum())
+                    pageviews = int(data['pageviews'].sum())
+                    views_per_session = pageviews / sessions if sessions > 0 else 0
+                    avg_duration = data['avg_duration'].mean()
+                    bounce_rate = data['bounce_rate'].mean()
+
+                    st.metric("Sessions", f"{sessions:,}")
+                    st.metric("Views/Session", f"{views_per_session:.2f}")
+                    st.metric("Avg Duration", f"{avg_duration:.0f}s")
+                    st.metric("Bounce Rate", f"{bounce_rate:.1f}%")
+                except Exception as e:
+                    st.error(f"Error: {e}")
+            else:
+                st.caption("GA4 not configured")
+else:
+    st.info("Configure sites and credentials to see metrics")
 
 st.markdown("---")
 
