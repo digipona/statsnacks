@@ -8,6 +8,7 @@ import sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
+from src.components.auth import require_auth
 from src.api.ga4_client import GA4Client
 from src.components.charts import create_events_bar, create_traffic_trend_chart
 from src.components.filters import (
@@ -25,6 +26,10 @@ st.set_page_config(
     page_icon="🎯",
     layout="wide"
 )
+
+# Auth check
+authenticator = require_auth()
+authenticator.logout("Logout", "sidebar")
 
 # Site selector (in sidebar)
 site = get_selected_site()

@@ -5,6 +5,8 @@ A Streamlit dashboard for Google Analytics 4 and Google Search Console data.
 """
 
 import streamlit as st
+import streamlit_authenticator as stauth
+import os
 import sys
 from pathlib import Path
 
@@ -21,6 +23,34 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
+# Authentication
+credentials = {
+    "usernames": {
+        os.getenv("AUTH_USERNAME", "admin"): {
+            "name": "Admin",
+            "password": os.getenv("AUTH_PASSWORD_HASH", "")
+        }
+    }
+}
+
+authenticator = stauth.Authenticate(
+    credentials,
+    "statsnacks",
+    os.getenv("AUTH_COOKIE_KEY", "default_secret_key"),
+    cookie_expiry_days=30
+)
+
+name, authentication_status, username = authenticator.login("Login", "main")
+
+if authentication_status == False:
+    st.error("Username/password is incorrect")
+    st.stop()
+if authentication_status == None:
+    st.warning("Please enter your username and password")
+    st.stop()
+
+# User is authenticated - continue with app
 
 # Custom CSS
 st.markdown("""
@@ -56,6 +86,8 @@ st.markdown("""
 
 # Sidebar
 st.sidebar.markdown("## 📊 Analytics Dashboard")
+authenticator.logout("Logout", "sidebar")
+st.sidebar.markdown("---")
 site_names = settings.get_site_names()
 if site_names:
     st.sidebar.markdown(f"**Sites:** {len(site_names)} configured")

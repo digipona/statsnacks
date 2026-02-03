@@ -1,5 +1,7 @@
 # Core Framework
 streamlit>=1.31.0
+streamlit-authenticator>=0.3.1
+bcrypt>=4.0.0
 
 # Google APIs
 google-api-python-client>=2.118.0
