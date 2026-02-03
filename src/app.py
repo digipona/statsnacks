@@ -179,11 +179,11 @@ if site_names and settings.validate_credentials():
                     ga4 = GA4Client(site_config=site)
                     data = ga4.get_traffic_overview(start_date, end_date)
 
-                    sessions = int(data['sessions'].sum())
-                    pageviews = int(data['pageviews'].sum())
+                    sessions = data['sessions']
+                    pageviews = data['pageviews']
                     views_per_session = pageviews / sessions if sessions > 0 else 0
-                    avg_duration = data['avg_duration'].mean()
-                    bounce_rate = data['bounce_rate'].mean()
+                    avg_duration = data['avg_duration']
+                    bounce_rate = data['bounce_rate']
 
                     st.metric("Sessions", f"{sessions:,}")
                     st.metric("Pageviews", f"{pageviews:,}")
