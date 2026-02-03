@@ -186,6 +186,7 @@ if site_names and settings.validate_credentials():
                     bounce_rate = data['bounce_rate'].mean()
 
                     st.metric("Sessions", f"{sessions:,}")
+                    st.metric("Pageviews", f"{pageviews:,}")
                     st.metric("Views/Session", f"{views_per_session:.2f}")
                     st.metric("Avg Duration", f"{avg_duration:.0f}s")
                     st.metric("Bounce Rate", f"{bounce_rate:.1f}%")
