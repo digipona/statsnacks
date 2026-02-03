@@ -34,27 +34,20 @@ def get_selected_site() -> SiteConfig:
     site_names = settings.get_site_names()
     display_names = settings.get_site_display_names()
 
-    # Create options list
-    options = site_names
+    # Display site buttons
+    st.sidebar.markdown("🌐 **Sites**")
+    for name in site_names:
+        display = display_names.get(name, name)
+        is_selected = (name == st.session_state.selected_site)
 
-    # Find current index
-    current_index = 0
-    if st.session_state.selected_site in options:
-        current_index = options.index(st.session_state.selected_site)
+        if is_selected:
+            st.sidebar.button(f"✓ {display}", key=f"site_{name}", disabled=True)
+        else:
+            if st.sidebar.button(display, key=f"site_{name}"):
+                st.session_state.selected_site = name
+                st.rerun()
 
-    # Display selector
-    selected = st.sidebar.selectbox(
-        "🌐 Select Site",
-        options=options,
-        index=current_index,
-        format_func=lambda x: display_names.get(x, x),
-        key='site_selector'
-    )
-
-    # Update session state
-    st.session_state.selected_site = selected
-
-    return settings.get_site(selected)
+    return settings.get_site(st.session_state.selected_site)
 
 
 def display_site_header(site: SiteConfig):

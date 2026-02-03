@@ -41,12 +41,12 @@ authenticator = stauth.Authenticate(
     cookie_expiry_days=30
 )
 
-name, authentication_status, username = authenticator.login("Login", "main")
+authenticator.login(location='main')
 
-if authentication_status == False:
+if st.session_state.get('authentication_status') == False:
     st.error("Username/password is incorrect")
     st.stop()
-if authentication_status == None:
+if st.session_state.get('authentication_status') is None:
     st.warning("Please enter your username and password")
     st.stop()
 
