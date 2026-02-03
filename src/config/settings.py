@@ -56,8 +56,8 @@ class Settings:
         site_names = [s.strip() for s in sites_str.split(',') if s.strip()]
 
         for name in site_names:
-            ga4_id = os.getenv(f'SITE_{name}_GA4', '')
-            gsc_url = os.getenv(f'SITE_{name}_GSC', '')
+            ga4_id = os.getenv(f'SITE_{name}_GA4', '').strip().lstrip('=')
+            gsc_url = os.getenv(f'SITE_{name}_GSC', '').strip()
 
             if ga4_id or gsc_url:
                 # Create display name
