@@ -1,0 +1,145 @@
+/* Custom CSS for Analytics Dashboard */
+
+/* Main header styling */
+.main-header {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.sub-header {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+/* Status indicators */
+.status-ok {
+    color: #09AB3B;
+}
+
+.status-error {
+    color: #FF4B4B;
+}
+
+.status-warning {
+    color: #FACA2B;
+}
+
+/* Card styling */
+.card {
+    background-color: #f0f2f6;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px 0;
+}
+
+/* Metric styling */
+.metric-value {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.metric-delta-positive {
+    color: #09AB3B;
+}
+
+.metric-delta-negative {
+    color: #FF4B4B;
+}
+
+/* Table styling */
+.dataframe {
+    font-size: 0.9rem;
+}
+
+/* Opportunity score badges */
+.score-high {
+    background-color: #09AB3B;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.score-medium {
+    background-color: #FACA2B;
+    color: black;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.score-low {
+    background-color: #FF4B4B;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+/* Category badges */
+.category-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    margin: 2px;
+}
+
+.category-quick-win {
+    background-color: #09AB3B;
+    color: white;
+}
+
+.category-striking-distance {
+    background-color: #FACA2B;
+    color: black;
+}
+
+.category-ctr-optimization {
+    background-color: #00C0F2;
+    color: white;
+}
+
+.category-maintain {
+    background-color: #636EFA;
+    color: white;
+}
+
+.category-high-volume {
+    background-color: #EF553B;
+    color: white;
+}
+
+.category-monitor {
+    background-color: #7F7F7F;
+    color: white;
+}
+
+/* Sidebar styling */
+.sidebar .sidebar-content {
+    background-color: #f0f2f6;
+}
+
+/* Button styling */
+.stButton > button {
+    border-radius: 8px;
+}
+
+/* Download button */
+.stDownloadButton > button {
+    background-color: #0068C9;
+    color: white;
+}
+
+/* Expander styling */
+.streamlit-expanderHeader {
+    font-weight: 600;
+}
+
+/* Tab styling */
+.stTabs [data-baseweb="tab-list"] {
+    gap: 8px;
+}
+
+.stTabs [data-baseweb="tab"] {
+    border-radius: 4px;
+}
