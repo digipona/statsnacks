@@ -1,5 +1,6 @@
 [build]
 builder = "nixpacks"
+buildCommand = "cd dashboard && npm install && npm run build"
 
 [deploy]
-startCommand = "streamlit run src/app.py --server.port $PORT --server.address 0.0.0.0"
+startCommand = "cd dashboard && npm start -- -p $PORT"
